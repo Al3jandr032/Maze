@@ -10,6 +10,16 @@ AStar::AStar()
     this->foundFinalPoint = false;
 }
 
+void AStar::setEntity(Entity *entity)
+{
+    this->entity = entity;
+}
+
+Entity *AStar::getEntity()
+{
+    return this->entity;
+}
+
 void AStar::solve()
 {
     qDebug() << "Solving with a star" << endl;

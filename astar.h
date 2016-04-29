@@ -18,6 +18,8 @@ public:
     AStar();
     void solve();
     unsigned int Solve(Coordinates a,Coordinates b);
+    void setEntity(Entity *entity);
+    Entity * getEntity();
 private:
     Entity *entity;
     bool foundFinalPoint;
