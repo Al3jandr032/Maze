@@ -376,8 +376,22 @@ void MainWindow::on_actionSolve_3_triggered()
 void MainWindow::on_actionSolve_4_triggered()
 {
     qDebug() << " solve using a *" <<endl;
+
+    Entity *entity = new Monkey();
+    this->ui->LEMountain->setText(QString::number( entity->getCost(0) ) );
+    this->ui->LEMountain->setEnabled(false);
+    this->ui->LEEarth->setText(QString::number( entity->getCost(1) ));
+    this->ui->LEEarth->setEnabled(false);
+    this->ui->LEWater->setText(QString::number( entity->getCost(2) ));
+    this->ui->LEWater->setEnabled(false);
+    this->ui->LEForest->setText(QString::number( entity->getCost(4) ));
+    this->ui->LEForest->setEnabled(false);
+    this->ui->LESand->setText(QString::number( entity->getCost(3) ));
+    this->ui->LESand->setEnabled(false);
+
     AStar *astar = new AStar();
     astar->setMatrix(matrix);
+    astar->setEntity(entity);
     QObject::connect(astar,SIGNAL(updateMaze()),this,SLOT(updateView()));
     astar->solve();
 }
