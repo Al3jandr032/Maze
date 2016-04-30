@@ -2,7 +2,7 @@
 
 DFS::DFS()
 {
-
+    this->p = new Precedence();
 }
 
 void DFS::anchura(Nodo *nodoaux){
@@ -40,8 +40,27 @@ void DFS::solve()
     nodoaux = new Nodo(NULL,this->current);
     this->a->addNewNode(nodoaux);
     /************************************************/
-    this->Search(nodoaux);
+
+    Adyacent *ady = this->maping(this->current);
+    this->p->setNodes(ady);
+    if(p->isDecision()){
+        this->Search(nodoaux);
+    }else{
+        qDebug() << "no es un nodo de decision " << endl;
+        while(!p->isDecision()){
+            current= this->inverseMapping(); //moverlo hasta la primer decision
+            this->checkMove(current);
+        }
+        this->a->addCurrent(nodoaux);
+        nodoaux = new Nodo(nodoaux,this->current);
+        this->a->addNode(nodoaux);
+        this->a->addCurrent(nodoaux);
+        this->Search(nodoaux);
+    }
+
+
     //relizar una funcion recursiva para buscar los hijos de un nodo dado
+    //this->Search(nodoaux);
     while(! this->foundFinalPoint ){
         qDebug() << "seguir" << endl;
         // busca los nodos hijo

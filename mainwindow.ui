@@ -30,7 +30,7 @@
       <x>10</x>
       <y>310</y>
       <width>151</width>
-      <height>221</height>
+      <height>316</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -92,7 +92,7 @@
       <x>20</x>
       <y>19</y>
       <width>121</width>
-      <height>81</height>
+      <height>94</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -168,11 +168,6 @@
      </item>
     </layout>
    </widget>
-   <zorder>graphicsView</zorder>
-   <zorder>verticalLayoutWidget</zorder>
-   <zorder>verticalLayoutWidget_2</zorder>
-   <zorder>verticalLayoutWidget_3</zorder>
-   <zorder>costo_labelt</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -180,7 +175,7 @@
      <x>0</x>
      <y>0</y>
      <width>842</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCreate">
@@ -217,7 +212,7 @@
     </property>
     <widget class="QMenu" name="menuBredth_First_Search">
      <property name="title">
-      <string>Bredth First Search</string>
+      <string>Depth First Search</string>
      </property>
      <addaction name="actionSolve"/>
      <addaction name="actionNodo_by_Node"/>
@@ -225,7 +220,7 @@
     </widget>
     <widget class="QMenu" name="menuDepth_First_Search">
      <property name="title">
-      <string>Depth First Search</string>
+      <string>Bredth First Search</string>
      </property>
      <addaction name="actionSolve_2"/>
     </widget>
