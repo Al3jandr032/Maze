@@ -59,7 +59,7 @@ void AStar::solve()
                 this->open.insert(n);
             }
         }
-        this->m->getValueAt(nodoaux->getValue())->Path(true);
+        this->m->getValueAt(nodoaux->getValue())->View(true);
         this->close.insert(nodoaux);
         if(this->foundFinalPoint)
             break;
@@ -67,6 +67,8 @@ void AStar::solve()
     }
     emit updateMaze();
     qDebug() << "termine" << endl;
+    this->exportTree();
+    this->a->print();
 
 }
 

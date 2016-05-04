@@ -44,6 +44,7 @@ void IDF::solve()
     /************************************************/
 
     qDebug() << " end of while" << endl;
+    this->exportTree();
 
 }
 

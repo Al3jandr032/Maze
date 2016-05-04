@@ -74,9 +74,38 @@ void Arbol::print()
     preorden(this->root);
 }
 
+QString Arbol::toString()
+{
+    QString stream;
+    preorden(this->root,&stream);
+    return stream;
+}
+
+void Arbol::preorden(Nodo * n,QString *qts){
+    if(n->isleaft()){
+        qts->append( QString::number( n->getValue().getX() ));
+        qts->append(":");
+        qts->append( QString::number(n->getValue().getY() ) );
+        qts->append('\n');
+        return;
+    }
+
+    qts->append( QString::number( n->getValue().getX() ));
+    qts->append(":");
+    qts->append( QString::number(n->getValue().getY() ) );
+    qts->append('\n');
+    for(unsigned int i =0; i<n->getNodes()->size();i++){
+        preorden(n->getNodes()->at(i),qts);
+    }
+}
+
+
+
 void Arbol::preorden(Nodo * n){
     if(n->isleaft())
         return;
+    if(n->Compare(this->root))
+        qDebug() << "Root" ;
     qDebug() << n->getValue().getX() << " : "<< n->getValue().getY() << endl;
     for(unsigned int i =0; i<n->getNodes()->size();i++){
         preorden(n->getNodes()->at(i));

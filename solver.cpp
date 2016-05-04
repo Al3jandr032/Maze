@@ -86,6 +86,22 @@ void Solver::solveManual()
         this->show(this->m->getValueAt(aux.getX()+1,aux.getY()));
 }
 
+void Solver::exportTree()
+{
+    QString filename = "/home/alex/Documentos/tree2.dot";
+    QFile file(filename);
+    Nodo *aux;
+    if (file.open(QIODevice::ReadWrite)) {
+        QTextStream stream(&file);
+        stream << "digraph G {"<< endl;
+        //stream << this->a->toString() << endl;
+        stream << this->a->numOfNodes() << endl;
+        stream << this->a->toString() << endl;
+        stream << "}" << endl;
+    }
+    file.close();
+}
+
 void Solver::on_move(Coordinates c,unsigned short int dir)
 {
     Casilla *aux;

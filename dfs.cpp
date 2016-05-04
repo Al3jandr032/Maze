@@ -72,6 +72,7 @@ void DFS::solve()
 
     qDebug() << " end of while" << endl;
     qDebug()<< this->a->numOfNodes() <<endl;
+    this->exportTree();
 
 }
 

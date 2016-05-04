@@ -59,9 +59,10 @@ void BFS::solve()
         }
 
     }
+    this->a->addNode(new Nodo(this->a->getCurrent(),this->m->getFinalPoint()));
     qDebug() << " end of while" << endl;
     qDebug()<< this->a->numOfNodes() <<endl;
-
+    this->exportTree();
 }
 
 

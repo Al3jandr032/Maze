@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QFile>
 #include "matrix.h"
 #include "coordinates.h"
 #include "casilla.h"
@@ -31,6 +32,7 @@ public:
     void setMatrix(Matrix *m);
     virtual void solve();
     void solveManual();
+    void exportTree();
 signals:
     void moveOneStep();
     void updateMaze();

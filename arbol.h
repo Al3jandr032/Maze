@@ -2,6 +2,7 @@
 #define ARBOL_H
 #include <QDebug>
 #include <QHash>
+#include <QString>
 #include "nodo.h"
 
 
@@ -25,12 +26,15 @@ public:
     int numOfNodes();
 
     void print();
+    QString toString();
+    void preorden(Nodo * n,QString *stream);
     bool isIn(Nodo *r);
 private:
     Nodo *root;
     Nodo* current;
     int numBodos;
     void preorden(Nodo * n);
+
     void buscar(Nodo * n,Nodo * b, bool *s);
 };
 
