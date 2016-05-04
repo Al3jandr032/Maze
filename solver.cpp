@@ -90,12 +90,10 @@ void Solver::exportTree()
 {
     QString filename = "/home/alex/Documentos/tree2.dot";
     QFile file(filename);
-    Nodo *aux;
+    //Nodo *aux;
     if (file.open(QIODevice::ReadWrite)) {
         QTextStream stream(&file);
         stream << "digraph G {"<< endl;
-        //stream << this->a->toString() << endl;
-        stream << this->a->numOfNodes() << endl;
         stream << this->a->toString() << endl;
         stream << "}" << endl;
     }

@@ -7,6 +7,7 @@ Arbol::Arbol()
     this->root = NULL;
     this->numBodos = 0;
     this->current = NULL;
+    this->label = 'a';
 }
 
 Arbol::~Arbol()
@@ -20,16 +21,21 @@ Arbol::~Arbol()
 
 void Arbol::addNode(Nodo *r)
 {
+    r->setLable(this->label);
+    this->label = label+1;
     current->addNode(r);
     this->numBodos++;
 }
 
 void Arbol::addNewNode(Nodo *r)
 {
+    r->setLable(this->label);
+    this->label = label+1;
     if(this->root == NULL){
         root = r;
         current = r;
     }else{
+
         current->addNode(r);
         current = r;
     }
@@ -78,24 +84,40 @@ QString Arbol::toString()
 {
     QString stream;
     preorden(this->root,&stream);
+    treeLabel(root,&stream);
     return stream;
 }
 
 void Arbol::preorden(Nodo * n,QString *qts){
-    if(n->isleaft()){
-        qts->append( QString::number( n->getValue().getX() ));
-        qts->append(":");
-        qts->append( QString::number(n->getValue().getY() ) );
+
+    if(n->getPadre() != NULL){
+
+        qts->append(  n->getPadre()->getLabel() );
+        qts->append("->");
+        qts->append( n->getLabel() );
         qts->append('\n');
+    }
+    if(n->isleaft()){
         return;
     }
-
-    qts->append( QString::number( n->getValue().getX() ));
-    qts->append(":");
-    qts->append( QString::number(n->getValue().getY() ) );
-    qts->append('\n');
     for(unsigned int i =0; i<n->getNodes()->size();i++){
         preorden(n->getNodes()->at(i),qts);
+    }
+}
+
+void Arbol::treeLabel(Nodo *n, QString *qts)
+{
+    qts->append(n->getLabel() );
+    qts->append("[label=\"");
+    qts->append(QString::number( n->getValue().getX() ));
+    qts->append(":");
+    qts->append(QString::number( n->getValue().getY() ));
+    qts->append("\"]\n");
+    if(n->isleaft()){
+        return;
+    }
+    for(unsigned int i =0; i<n->getNodes()->size();i++){
+        treeLabel(n->getNodes()->at(i),qts);
     }
 }
 

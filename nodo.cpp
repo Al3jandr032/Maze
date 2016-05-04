@@ -140,3 +140,13 @@ unsigned int Nodo::getDistancia()
 {
     return this->distancia;
 }
+
+void Nodo::setLable(char in)
+{
+    this->label = in;
+}
+
+char Nodo::getLabel()
+{
+    return this->label;
+}

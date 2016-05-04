@@ -28,10 +28,12 @@ public:
     void print();
     QString toString();
     void preorden(Nodo * n,QString *stream);
+    void treeLabel(Nodo *n,QString *stream);
     bool isIn(Nodo *r);
 private:
     Nodo *root;
     Nodo* current;
+    char label;
     int numBodos;
     void preorden(Nodo * n);
 

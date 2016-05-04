@@ -19,6 +19,7 @@ protected:
     unsigned int Total;
     unsigned int costo;
     unsigned int distancia;
+    char label;
 
 public:
     Nodo(Nodo *padre);
@@ -66,7 +67,12 @@ public:
     void setDistancia(unsigned int t);
 
     unsigned int getDistancia();
-
+    /*
+    *   operacion con label
+    *
+    ****************/
+    void setLable(char in);
+    char getLabel(void);
 };
 
 #endif // NODO_H
