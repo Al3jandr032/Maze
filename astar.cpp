@@ -74,36 +74,64 @@ void AStar::solve()
 
 unsigned int AStar::Solve(Coordinates a, Coordinates b)
 {
-    qDebug() << "Solving with a star" << endl;
     unsigned int costo=0;
     QSet<Nodo *>::iterator iter;
-    this->m->setInicialPoint(a);
-    this->m->setFinalPoint(b);
+    qDebug() << "Solving with a star" << endl;
     this->close.clear();
     this->open.clear();
     Nodo *nodoaux,*nodoset;
-    this->entity = new Monkey();
+    Nodo *n;
     /************************************************/
     this->a = new Arbol();
-    this->current =  this->m->getInicialPoint();
+    this->current =  a;
     nodoaux = new Nodo(NULL,this->current);
-
+    nodoaux->setCosto(this->entity->getCost(this->m->getValueAt(current)->getType()));
+    nodoaux->setDistancia(this->calcDistance(this->m->getFinalPoint(),nodoaux->getValue()));
+    nodoaux->calcTotal();
     this->a->addNewNode(nodoaux);
+    this->open.insert(nodoaux);
     /************************************************/
-    while(! this->foundFinalPoint ){
+    while(!this->open.isEmpty() ){
+        nodoaux = this->getMin();
+        this->open.remove(nodoaux);
+        addLevel(nodoaux);
 
-        if(checkMove(this->current)){
-            nodoaux = this->Search(nodoaux,this->current);
-            this->a->addCurrent(nodoaux);
-            emit updateMaze();
+        if(b.Comp(nodoaux->getValue())){
+            this->foundFinalPoint = true;
+            break;
         }
+        for(unsigned int i =0; i < nodoaux->getNodes()->size();i++){
+            n = nodoaux->getNodes()->at(i);
+            if(b.Comp(n->getValue())){
+                this->foundFinalPoint = true;
+                break;
+            }else{
+                qDebug() << "Buscando " << endl;
+                if(this->CheckNodo(this->close,n)){
+                    continue;
+                }
+                if(this->CheckNodo(this->open,n)){
+                    continue;
+                }
+                this->open.insert(n);
+            }
+        }
+        this->m->getValueAt(nodoaux->getValue())->View(true);
+        this->close.insert(nodoaux);
+        if(this->foundFinalPoint)
+            break;
 
     }
+    emit updateMaze();
+    qDebug() << "termine" << endl;
     //emit updateMaze();
-    for (iter = close.begin(); iter != close.end(); ++iter){
-        nodoset = *iter;
-        costo = costo + nodoset->getTotal();
+
+    while(n->getPadre() != NULL){
+        qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
+        costo += n->getCosto();
+        n = n->getPadre();
     }
+
     return costo;
 }
 

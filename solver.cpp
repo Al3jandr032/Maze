@@ -88,7 +88,10 @@ void Solver::solveManual()
 
 void Solver::exportTree()
 {
-    QString filename = "/home/alex/Documentos/tree2.dot";
+    // for linux
+    //QString filename = "/home/alex/Documentos/tree2.dot";
+    //for windows
+    QString filename = "C:\\Users\\MI PC\\Desktop\\tree.dot";
     QFile file(filename);
     //Nodo *aux;
     if (file.open(QIODevice::ReadWrite)) {
