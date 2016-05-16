@@ -201,6 +201,9 @@
      </property>
      <addaction name="actionInicial"/>
      <addaction name="actionFinal"/>
+     <addaction name="separator"/>
+     <addaction name="actionDark_Temple"/>
+     <addaction name="actionKey"/>
     </widget>
     <addaction name="menuType_of_terrain"/>
     <addaction name="menuPoints"/>
@@ -343,6 +346,16 @@
   <action name="actionSolve_5">
    <property name="text">
     <string>Solve</string>
+   </property>
+  </action>
+  <action name="actionDark_Temple">
+   <property name="text">
+    <string>Dark Temple</string>
+   </property>
+  </action>
+  <action name="actionKey">
+   <property name="text">
+    <string>Key</string>
    </property>
   </action>
  </widget>

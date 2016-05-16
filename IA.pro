@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     entity.cpp \
     monkey.cpp \
     octopus.cpp \
-    human.cpp
+    human.cpp \
+    route.cpp
 
 HEADERS  += mainwindow.h \
     matrix.h \
@@ -47,6 +48,7 @@ HEADERS  += mainwindow.h \
     entity.h \
     monkey.h \
     octopus.h \
-    human.h
+    human.h \
+    route.h
 
 FORMS    += mainwindow.ui

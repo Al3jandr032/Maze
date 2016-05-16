@@ -19,6 +19,7 @@
 #include "matrix.h"
 #include "casilla.h"
 #include "solver.h"
+#include "route.h"
 
 namespace Ui {
 class MainWindow;
@@ -77,6 +78,10 @@ private slots:
 
     void on_actionSolve_5_triggered();
 
+    void on_actionDark_Temple_triggered();
+
+    void on_actionKey_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -87,6 +92,8 @@ private:
     Coordinates activeCor;
 
     Solver *s;
+
+    Route *r;
 
     //QGraphicsRectItem * rect;
     //QVector< QVector<Casilla> > *casillas;

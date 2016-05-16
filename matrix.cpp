@@ -54,6 +54,26 @@ void Matrix::setFinalPoint(Coordinates fp)
     this->finalPoint = fp;
 }
 
+Coordinates Matrix::getDarkTeample()
+{
+    return this->dt;
+}
+
+void Matrix::setDarkTeample(Coordinates fp)
+{
+    this->dt = fp;
+}
+
+Coordinates Matrix::getKey()
+{
+    return this->key;
+}
+
+void Matrix::setKey(Coordinates fp)
+{
+    this->key = fp;
+}
+
 unsigned int Matrix::getm()
 {
     return this->m;

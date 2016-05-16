@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(matrix ,SIGNAL(ChangeActiveBox(Coordinates)),
                      this,SLOT(updateActiveBox(Coordinates)));
     //QObject::connect(this->alg,SIGNAL(move()),this,SLOT(on_move())); //updateMaze()
+    this->r = NULL;
+    this->s = NULL;
 
 }
 /*
@@ -211,6 +213,22 @@ void MainWindow::on_actionFinal_triggered()
     this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->setBrush(Qt::magenta);
     this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->FinalPoint(true);
     this->ui->FP->setText(this->activeCor.text());
+    this->scene->update();
+}
+void MainWindow::on_actionDark_Temple_triggered()
+{
+    this->matrix->setDarkTeample(this->activeCor);
+    this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->setBrush(Qt::red);
+    //this->ui->IP->setText(this->activeCor.text());
+    this->scene->update();
+    //****************************************************************************************************************
+}
+
+void MainWindow::on_actionKey_triggered()
+{
+    this->matrix->setKey(this->activeCor);
+    this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->setBrush(Qt::red);
+    //this->ui->IP->setText(this->activeCor.text());
     this->scene->update();
 }
 /*
@@ -415,3 +433,5 @@ void MainWindow::on_actionSolve_5_triggered()
     QObject::connect(this,SIGNAL(make_move(Coordinates,unsigned short int)),s,SLOT(on_move(Coordinates,unsigned short int)));
     s->solveManual();
 }
+
+

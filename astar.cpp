@@ -79,7 +79,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     qDebug() << "Solving with a star" << endl;
     this->close.clear();
     this->open.clear();
-    Nodo *nodoaux,*nodoset;
+    Nodo *nodoaux;
     Nodo *n;
     /************************************************/
     this->a = new Arbol();
