@@ -27,11 +27,16 @@ public:
     void setDarkTeample(Coordinates fp);
     Coordinates getKey();
     void setKey(Coordinates fp);
+    Coordinates getHuman();
+    void setHuman(Coordinates fp);
+    Coordinates getOcto();
+    void setOcto(Coordinates fp);
     unsigned int getm();
     unsigned int getn();
     void print(void);
     bool isLoaded();
     void Load(bool in);
+    void clear(void);
 public slots:
     void setPoint(Coordinates c);
 signals:
@@ -41,7 +46,7 @@ private:
     //bool **maze; QVector< QVector<Casilla> >
     bool loaded;
     QVector< QVector<Casilla *> > maze;
-    Coordinates inicialPoint,finalPoint,dt,key;
+    Coordinates inicialPoint,finalPoint,dt,key,human,octo;
     unsigned int m,n;
     Precedence *precedence;
 

@@ -29,7 +29,7 @@ private:
     unsigned int CalcTotal(int type_t,Coordinates c);
     Coordinates inverseMapping(Nodo *auxNodo);
     Nodo* Search(Nodo *nodoaux,Coordinates cooraux);
-    void addLevel(Nodo *nodoaux);
+    void addLevel(Nodo *nodoaux,Coordinates final);
     bool CheckNodo(QSet<Nodo *> set,Nodo *n);
     Nodo * getMin();
 

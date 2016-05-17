@@ -82,6 +82,10 @@ private slots:
 
     void on_actionKey_triggered();
 
+    void on_actionHuman_triggered();
+
+    void on_actionOctopus_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -94,7 +98,7 @@ private:
     Solver *s;
 
     Route *r;
-
+    bool basic_map;
     //QGraphicsRectItem * rect;
     //QVector< QVector<Casilla> > *casillas;
     void loadMap();

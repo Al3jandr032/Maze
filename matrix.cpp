@@ -74,6 +74,26 @@ void Matrix::setKey(Coordinates fp)
     this->key = fp;
 }
 
+Coordinates Matrix::getHuman()
+{
+    return this->human;
+}
+
+void Matrix::setHuman(Coordinates fp)
+{
+    this->human = fp;
+}
+
+Coordinates Matrix::getOcto()
+{
+    return this->octo;
+}
+
+void Matrix::setOcto(Coordinates fp)
+{
+    this->octo = fp;
+}
+
 unsigned int Matrix::getm()
 {
     return this->m;
@@ -102,6 +122,18 @@ bool Matrix::isLoaded()
 void Matrix::Load(bool in)
 {
     this->loaded = in;
+}
+
+void Matrix::clear()
+{
+    for(unsigned int i =0; i<this->m;i++){
+        for(unsigned int j =0;j < this->n;j++){
+            this->getValueAt(i,j)->View(false);
+            //this->getValueAt(i,m)->FinalPoint(false);
+            //this->getValueAt(i,m)->InicialPoint(false);
+            this->getValueAt(i,j)->Path(false);
+        }
+    }
 }
 
 void Matrix::setPoint(Coordinates c)

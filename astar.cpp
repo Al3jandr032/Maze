@@ -37,7 +37,7 @@ void AStar::solve()
     while(!this->open.isEmpty() ){
         nodoaux = this->getMin();
         this->open.remove(nodoaux);
-        addLevel(nodoaux);
+        addLevel(nodoaux,this->m->getFinalPoint());
         Nodo *n;
         if(this->m->getFinalPoint().Comp(nodoaux->getValue())){
             this->foundFinalPoint = true;
@@ -86,7 +86,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     this->current =  a;
     nodoaux = new Nodo(NULL,this->current);
     nodoaux->setCosto(this->entity->getCost(this->m->getValueAt(current)->getType()));
-    nodoaux->setDistancia(this->calcDistance(this->m->getFinalPoint(),nodoaux->getValue()));
+    nodoaux->setDistancia(this->calcDistance(b,nodoaux->getValue()));
     nodoaux->calcTotal();
     this->a->addNewNode(nodoaux);
     this->open.insert(nodoaux);
@@ -94,7 +94,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     while(!this->open.isEmpty() ){
         nodoaux = this->getMin();
         this->open.remove(nodoaux);
-        addLevel(nodoaux);
+        addLevel(nodoaux,b);
 
         if(b.Comp(nodoaux->getValue())){
             this->foundFinalPoint = true;
@@ -146,7 +146,7 @@ Nodo* AStar::Search(Nodo *nodoaux,Coordinates cooraux)
             return nodoaux;
         }
 
-        this->addLevel(nodoaux);
+        this->addLevel(nodoaux,this->m->getFinalPoint());
 
         // moverse
         cooraux = this->inverseMapping(nodoaux); // nuevas coordenadas del siguiente punto
@@ -160,7 +160,7 @@ Nodo* AStar::Search(Nodo *nodoaux,Coordinates cooraux)
     return NULL;
 }
 
-void AStar::addLevel(Nodo *nodoaux)
+void AStar::addLevel(Nodo *nodoaux,Coordinates b)
 {
     Nodo *n;
     Coordinates newcord;
@@ -171,11 +171,12 @@ void AStar::addLevel(Nodo *nodoaux)
 
         newcord = nodoaux->getValue();
         newcord.setY(nodoaux->getValue().getY() - 1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
+        if(!this->m->getValueAt(newcord)->isView())
+        {
             qDebug() << " add new node up "<< endl;
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -185,11 +186,12 @@ void AStar::addLevel(Nodo *nodoaux)
     if(ady->getDown() >= 1 ){
         newcord = nodoaux->getValue();
         newcord.setY(nodoaux->getValue().getY() + 1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
+        if(!this->m->getValueAt(newcord)->isView())
+        {
             qDebug() << " add new node Down "<< endl;
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -198,11 +200,11 @@ void AStar::addLevel(Nodo *nodoaux)
     if(ady->getLeft() >= 1 ){
         newcord = nodoaux->getValue();
         newcord.setX(nodoaux->getValue().getX() -1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
+        if(!this->m->getValueAt(newcord)->isView()){
             qDebug() << " add new node left "<< endl;
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -215,7 +217,7 @@ void AStar::addLevel(Nodo *nodoaux)
             qDebug() << " add new node right "<< endl;
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n); buscar si existe con la misma posicion

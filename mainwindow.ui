@@ -204,6 +204,8 @@
      <addaction name="separator"/>
      <addaction name="actionDark_Temple"/>
      <addaction name="actionKey"/>
+     <addaction name="actionHuman"/>
+     <addaction name="actionOctopus"/>
     </widget>
     <addaction name="menuType_of_terrain"/>
     <addaction name="menuPoints"/>
@@ -356,6 +358,16 @@
   <action name="actionKey">
    <property name="text">
     <string>Key</string>
+   </property>
+  </action>
+  <action name="actionHuman">
+   <property name="text">
+    <string>Human</string>
+   </property>
+  </action>
+  <action name="actionOctopus">
+   <property name="text">
+    <string>Octopus</string>
    </property>
   </action>
  </widget>

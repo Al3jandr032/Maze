@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //QObject::connect(this->alg,SIGNAL(move()),this,SLOT(on_move())); //updateMaze()
     this->r = NULL;
     this->s = NULL;
+    basic_map = true;
 
 }
 /*
@@ -66,7 +67,8 @@ void MainWindow::loadMap(){
                 aux->FinalPoint(false);
                 aux->InicialPoint(false);
                 aux->Path(false);
-
+                if(aux->getType()> 1)
+                    this->basic_map = false;
                 //this->matrix->getValueAt(i,m)->setX((37*i));
                 //this->matrix->getValueAt(i,m)->setY((37*m));
                 //this->matrix->getValueAt(i,m)->setType(fields.at(i).toInt(&con,10));
@@ -218,7 +220,7 @@ void MainWindow::on_actionFinal_triggered()
 void MainWindow::on_actionDark_Temple_triggered()
 {
     this->matrix->setDarkTeample(this->activeCor);
-    this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->setBrush(Qt::red);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::red);
     //this->ui->IP->setText(this->activeCor.text());
     this->scene->update();
     //****************************************************************************************************************
@@ -227,8 +229,22 @@ void MainWindow::on_actionDark_Temple_triggered()
 void MainWindow::on_actionKey_triggered()
 {
     this->matrix->setKey(this->activeCor);
-    this->matrix->getValueAt(this->activeCor.getX(),this->activeCor.getY())->setBrush(Qt::red);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::red);
     //this->ui->IP->setText(this->activeCor.text());
+    this->scene->update();
+}
+
+void MainWindow::on_actionHuman_triggered()
+{
+    this->matrix->setHuman(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::red);
+    this->scene->update();
+}
+
+void MainWindow::on_actionOctopus_triggered()
+{
+    this->matrix->setOcto(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::red);
     this->scene->update();
 }
 /*
@@ -416,6 +432,13 @@ void MainWindow::on_actionSolve_4_triggered()
 
 void MainWindow::on_actionCosto_triggered()
 {
+    this->r = new Route();
+    this->r->setMatrix(this->matrix);
+    this->r->calc();
+    //this->r->setKey();
+    //this->r->setDarkteample();
+    //this->r->setPortal();
+    /*
     AStar *astar = new AStar();
     astar->setMatrix(matrix);
     QObject::connect(astar,SIGNAL(updateMaze()),this,SLOT(updateView()));
@@ -423,6 +446,7 @@ void MainWindow::on_actionCosto_triggered()
     this->ui->costo_label->setText(QString::number(costo));
     this->ui->costo_label->show();
     this->ui->costo_labelt->show();
+    */
 }
 
 void MainWindow::on_actionSolve_5_triggered()
@@ -433,5 +457,3 @@ void MainWindow::on_actionSolve_5_triggered()
     QObject::connect(this,SIGNAL(make_move(Coordinates,unsigned short int)),s,SLOT(on_move(Coordinates,unsigned short int)));
     s->solveManual();
 }
-
-
