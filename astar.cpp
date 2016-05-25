@@ -24,6 +24,7 @@ void AStar::solve()
 {
     qDebug() << "Solving with a star" << endl;
     Nodo *nodoaux;
+    Nodo *n;
     /************************************************/
     this->a = new Arbol();
     this->current =  this->m->getInicialPoint();
@@ -38,7 +39,6 @@ void AStar::solve()
         nodoaux = this->getMin();
         this->open.remove(nodoaux);
         addLevel(nodoaux);
-        Nodo *n;
         if(this->m->getFinalPoint().Comp(nodoaux->getValue())){
             this->foundFinalPoint = true;
             break;
@@ -64,6 +64,10 @@ void AStar::solve()
         if(this->foundFinalPoint)
             break;
 
+    }
+    while(n->getPadre() != NULL){
+        this->m->getValueAt(n->getValue())->Path(true);
+        n = n->getPadre();
     }
     emit updateMaze();
     qDebug() << "termine" << endl;
