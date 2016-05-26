@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(this->scene);
     this->ui->costo_label->hide();
     this->ui->costo_labelt->hide();
+    ui->comboBox->addItem("Monkey");
+    ui->comboBox->addItem("Human");
+    ui->comboBox->addItem("Octopus");
     QObject::connect(matrix ,SIGNAL(ChangeActiveBox(Coordinates)),
                      this,SLOT(updateActiveBox(Coordinates)));
     //QObject::connect(this->alg,SIGNAL(move()),this,SLOT(on_move())); //updateMaze()
@@ -80,6 +83,16 @@ void MainWindow::loadMap(){
         }
         source.close();
         this->matrix->Load(true);
+        this->ui->actionSet->setEnabled(true);
+        ui->actionFinal->setEnabled(true);
+        ui->actionInicial->setEnabled(true);
+        ui->actionClear->setEnabled(true);
+        ui->actionCover_map->setEnabled(true);
+        ui->actionSolve->setEnabled(true);
+        ui->actionSolve_2->setEnabled(true);
+        ui->actionSolve_3->setEnabled(true);
+        ui->actionSolve_4->setEnabled(true);
+        ui->actionSolve_5->setEnabled(true);
 
     }else{
         QMessageBox::information(0,"error",source.errorString());
@@ -325,6 +338,8 @@ void MainWindow::on_actionSolve_triggered()
     bfs->setMatrix(matrix);
     QObject::connect(bfs,SIGNAL(updateMaze()),this,SLOT(updateView()));
     bfs->solve();
+    ui->actionOriginal->setEnabled(true);
+    ui->actionSolution->setEnabled(true);
 }
 
 void MainWindow::on_actionSolve_2_triggered()
@@ -333,6 +348,8 @@ void MainWindow::on_actionSolve_2_triggered()
     dfs->setMatrix(matrix);
     QObject::connect(dfs,SIGNAL(updateMaze()),this,SLOT(updateView()));
     dfs->solve();
+    ui->actionOriginal->setEnabled(true);
+    ui->actionSolution->setEnabled(true);
 }
 
 void MainWindow::on_actionSolve_3_triggered()
@@ -371,13 +388,23 @@ void MainWindow::on_actionSolve_3_triggered()
     QObject::connect(idf,SIGNAL(updateMaze()),this,SLOT(updateView()));
     idf->setIP((unsigned)i,(unsigned)p);
     idf->solve();
+    ui->actionOriginal->setEnabled(true);
+    ui->actionSolution->setEnabled(true);
 }
 
 void MainWindow::on_actionSolve_4_triggered()
 {
     qDebug() << " solve using a *" <<endl;
+    Entity *entity;
+    if(ui->comboBox->currentIndex() == 0){
+        entity = new Monkey();
+    }else if(ui->comboBox->currentIndex() == 1){
+        entity = new Human();
+    }else if(ui->comboBox->currentIndex() == 2){
+        entity = new Octopus();
+    }
 
-    Entity *entity = new Monkey();
+
     this->ui->LEMountain->setText(QString::number( entity->getCost(0) ) );
     this->ui->LEMountain->setEnabled(false);
     this->ui->LEEarth->setText(QString::number( entity->getCost(1) ));
@@ -394,6 +421,8 @@ void MainWindow::on_actionSolve_4_triggered()
     astar->setEntity(entity);
     QObject::connect(astar,SIGNAL(updateMaze()),this,SLOT(updateView()));
     astar->solve();
+    ui->actionOriginal->setEnabled(true);
+    ui->actionSolution->setEnabled(true);
 }
 
 void MainWindow::on_actionCosto_triggered()
@@ -405,6 +434,8 @@ void MainWindow::on_actionCosto_triggered()
     this->ui->costo_label->setText(QString::number(costo));
     this->ui->costo_label->show();
     this->ui->costo_labelt->show();
+    ui->actionOriginal->setEnabled(true);
+    ui->actionSolution->setEnabled(true);
 }
 
 void MainWindow::on_actionSolve_5_triggered()
@@ -414,4 +445,35 @@ void MainWindow::on_actionSolve_5_triggered()
     QObject::connect(s,SIGNAL(updateMaze()),this,SLOT(updateOne()));
     QObject::connect(this,SIGNAL(make_move(Coordinates,unsigned short int)),s,SLOT(on_move(Coordinates,unsigned short int)));
     s->solveManual();
+
+}
+
+void MainWindow::on_actionOriginal_triggered()
+{
+    Casilla *aux ;
+    int type_t = 0;
+    for(int i=0;i<15;i++){
+        for(int j=0;j<15;j++){
+            aux = this->matrix->getValueAt(i,j);
+                scene->removeItem(aux);
+                type_t = this->matrix->getValueAt(i,j)->getType() ;
+                if(type_t == 0){
+                    aux->setBrush(Qt::gray);
+                }else if(type_t == 1){
+                    aux->setBrush(Qt::white);
+                }else if(type_t == 2){
+                    aux->setBrush(Qt::blue);
+                }else if(type_t == 3){
+                    aux->setBrush(Qt::yellow);
+                }else if(type_t == 4){
+                    aux->setBrush(Qt::green);
+                }
+            scene->addItem(aux);
+        }
+    }
+}
+
+void MainWindow::on_actionSolution_triggered()
+{
+    this->drawMap(15,15,true);
 }

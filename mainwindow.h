@@ -19,6 +19,7 @@
 #include "matrix.h"
 #include "casilla.h"
 #include "solver.h"
+#include "human.h"
 
 namespace Ui {
 class MainWindow;
@@ -76,6 +77,10 @@ private slots:
     void on_actionCosto_triggered();
 
     void on_actionSolve_5_triggered();
+
+    void on_actionOriginal_triggered();
+
+    void on_actionSolution_triggered();
 
 private:
     Ui::MainWindow *ui;

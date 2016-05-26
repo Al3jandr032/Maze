@@ -30,10 +30,27 @@
       <x>10</x>
       <y>310</y>
       <width>151</width>
-      <height>316</height>
+      <height>376</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Personaje</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="maxVisibleItems">
+        <number>4</number>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
@@ -146,12 +163,15 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>120</y>
-      <width>160</width>
-      <height>80</height>
+      <y>129</y>
+      <width>151</width>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QLabel" name="costo_labelt">
        <property name="text">
@@ -215,8 +235,6 @@
       <string>Depth First Search</string>
      </property>
      <addaction name="actionSolve"/>
-     <addaction name="actionNodo_by_Node"/>
-     <addaction name="actionStep_by_step"/>
     </widget>
     <widget class="QMenu" name="menuDepth_First_Search">
      <property name="title">
@@ -250,6 +268,8 @@
     </property>
     <addaction name="actionCover_map"/>
     <addaction name="actionSolve_5"/>
+    <addaction name="actionOriginal"/>
+    <addaction name="actionSolution"/>
    </widget>
    <addaction name="menuCreate"/>
    <addaction name="menuMap"/>
@@ -276,6 +296,9 @@
    </property>
   </action>
   <action name="actionSet">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Set</string>
    </property>
@@ -286,21 +309,33 @@
    </property>
   </action>
   <action name="actionInicial">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Inicial</string>
    </property>
   </action>
   <action name="actionFinal">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Final</string>
    </property>
   </action>
   <action name="actionCover_map">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Cover  map</string>
    </property>
   </action>
   <action name="actionClear">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Clear</string>
    </property>
@@ -316,33 +351,67 @@
    </property>
   </action>
   <action name="actionSolve">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Solve</string>
    </property>
   </action>
   <action name="actionSolve_2">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Solve</string>
    </property>
   </action>
   <action name="actionSolve_3">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Solve</string>
    </property>
   </action>
   <action name="actionSolve_4">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Solve</string>
    </property>
   </action>
   <action name="actionCosto">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Costo</string>
    </property>
   </action>
   <action name="actionSolve_5">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Solve</string>
+   </property>
+  </action>
+  <action name="actionOriginal">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Original</string>
+   </property>
+  </action>
+  <action name="actionSolution">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Solution</string>
    </property>
   </action>
  </widget>
