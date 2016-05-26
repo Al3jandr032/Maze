@@ -457,17 +457,24 @@ void MainWindow::on_actionOriginal_triggered()
             aux = this->matrix->getValueAt(i,j);
                 scene->removeItem(aux);
                 type_t = this->matrix->getValueAt(i,j)->getType() ;
-                if(type_t == 0){
-                    aux->setBrush(Qt::gray);
-                }else if(type_t == 1){
-                    aux->setBrush(Qt::white);
-                }else if(type_t == 2){
-                    aux->setBrush(Qt::blue);
-                }else if(type_t == 3){
-                    aux->setBrush(Qt::yellow);
-                }else if(type_t == 4){
-                    aux->setBrush(Qt::green);
+                if( aux->isInicialPoint()){
+                    aux->setBrush(Qt::red);
+                }else if( aux->isFinalPoint() ){
+                    aux->setBrush(Qt::magenta);
+                }else{
+                    if(type_t == 0){
+                        aux->setBrush(Qt::gray);
+                    }else if(type_t == 1){
+                        aux->setBrush(Qt::white);
+                    }else if(type_t == 2){
+                        aux->setBrush(Qt::blue);
+                    }else if(type_t == 3){
+                        aux->setBrush(Qt::yellow);
+                    }else if(type_t == 4){
+                        aux->setBrush(Qt::green);
+                    }
                 }
+
             scene->addItem(aux);
         }
     }
