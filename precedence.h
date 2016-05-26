@@ -14,6 +14,7 @@ public:
 private:
     Adyacent * nodes; // node values
     bool decisionPoint();
+    short int precd;
 
 };
 

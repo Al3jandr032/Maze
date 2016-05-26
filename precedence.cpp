@@ -2,7 +2,7 @@
 
 Precedence::Precedence()
 {
-
+    precd = 1;
 }
 
 void Precedence::setNodes(Adyacent *in)
