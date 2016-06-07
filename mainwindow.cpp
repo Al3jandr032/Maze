@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     matrix = new Matrix(15,15);
+    this->p = new Points();
     this->scene = new QGraphicsScene(this);
     this->scene->setSceneRect(-15,-10,700,700);
     ui->setupUi(this);
@@ -86,6 +87,11 @@ void MainWindow::loadMap(){
         this->ui->actionSet->setEnabled(true);
         ui->actionFinal->setEnabled(true);
         ui->actionInicial->setEnabled(true);
+        ui->actionHuman->setEnabled(true);
+        ui->actionDark_templ->setEnabled(true);
+        ui->actionKey->setEnabled(true);
+        ui->actionPortal->setEnabled(true);
+        ui->actionOctopius->setEnabled(true);
         ui->actionClear->setEnabled(true);
         ui->actionCover_map->setEnabled(true);
         ui->actionSolve->setEnabled(true);
@@ -93,6 +99,7 @@ void MainWindow::loadMap(){
         ui->actionSolve_3->setEnabled(true);
         ui->actionSolve_4->setEnabled(true);
         ui->actionSolve_5->setEnabled(true);
+        ui->actionCosto->setEnabled(true);
 
     }else{
         QMessageBox::information(0,"error",source.errorString());
@@ -226,6 +233,55 @@ void MainWindow::on_actionFinal_triggered()
     this->ui->FP->setText(this->activeCor.text());
     this->scene->update();
 }
+/********************************************************************************/
+/*
+ * slots to assign the points human, octopus
+*/
+void MainWindow::on_actionKey_triggered()
+{
+    qDebug() << "Key point"<< endl;
+    //this->matrix->setKeyPoint();
+    this->p->setkey(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::magenta);
+    this->scene->update();
+}
+
+void MainWindow::on_actionDark_templ_triggered()
+{
+    qDebug() << "Dark temple" << endl;
+    //this->matrix->setDarkPoint();
+    this->p->setDark(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkRed);
+    this->scene->update();
+}
+
+void MainWindow::on_actionHuman_triggered()
+{
+    qDebug() << "Human" << endl;
+    //this->matrix->setDarkPoint();
+    this->p->setHuman(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkBlue);
+    this->scene->update();
+}
+
+void MainWindow::on_actionOctopius_triggered()
+{
+    qDebug() << "Octopus" << endl;
+    //this->matrix->setDarkPoint();
+    this->p->setOctopus(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkGreen);
+    this->scene->update();
+}
+
+void MainWindow::on_actionPortal_triggered()
+{
+    qDebug() << "Portal" << endl;
+    //this->matrix->setDarkPoint();
+    this->p->setPortal(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkCyan);
+    this->scene->update();
+}
+/********************************************************************************/
 /*
 *   Function handle when the action Open has triggered
 */
@@ -427,11 +483,12 @@ void MainWindow::on_actionSolve_4_triggered()
 
 void MainWindow::on_actionCosto_triggered()
 {
-    AStar *astar = new AStar();
-    astar->setMatrix(matrix);
-    QObject::connect(astar,SIGNAL(updateMaze()),this,SLOT(updateView()));
-    unsigned int costo = astar->Solve(this->matrix->getInicialPoint(),this->matrix->getFinalPoint());
-    this->ui->costo_label->setText(QString::number(costo));
+    Route *r = new Route();
+    r->setMatrix(matrix);
+    r->setPoints(this->p);
+    QObject::connect(r,SIGNAL(updateMaze()),this,SLOT(updateView()));
+    r->calc();
+    this->ui->costo_label->setText(QString::number(5));
     this->ui->costo_label->show();
     this->ui->costo_labelt->show();
     ui->actionOriginal->setEnabled(true);
@@ -484,3 +541,4 @@ void MainWindow::on_actionSolution_triggered()
 {
     this->drawMap(15,15,true);
 }
+

@@ -20,6 +20,8 @@
 #include "casilla.h"
 #include "solver.h"
 #include "human.h"
+#include "points.h"
+#include "route.h"
 
 namespace Ui {
 class MainWindow;
@@ -82,6 +84,16 @@ private slots:
 
     void on_actionSolution_triggered();
 
+    void on_actionKey_triggered();
+
+    void on_actionDark_templ_triggered();
+
+    void on_actionHuman_triggered();
+
+    void on_actionOctopius_triggered();
+
+    void on_actionPortal_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -92,6 +104,8 @@ private:
     Coordinates activeCor;
 
     Solver *s;
+
+    Points *p;
 
     //QGraphicsRectItem * rect;
     //QVector< QVector<Casilla> > *casillas;

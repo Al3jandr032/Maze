@@ -65,6 +65,7 @@ void AStar::solve()
             break;
 
     }
+
     while(n->getPadre() != NULL){
         this->m->getValueAt(n->getValue())->Path(true);
         n = n->getPadre();
@@ -80,17 +81,16 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
 {
     unsigned int costo=0;
     QSet<Nodo *>::iterator iter;
-    qDebug() << "Solving with a star" << endl;
     this->close.clear();
     this->open.clear();
-    Nodo *nodoaux,*nodoset;
+    Nodo *nodoaux;
     Nodo *n;
     /************************************************/
     this->a = new Arbol();
     this->current =  a;
     nodoaux = new Nodo(NULL,this->current);
     nodoaux->setCosto(this->entity->getCost(this->m->getValueAt(current)->getType()));
-    nodoaux->setDistancia(this->calcDistance(this->m->getFinalPoint(),nodoaux->getValue()));
+    nodoaux->setDistancia(this->calcDistance(b,nodoaux->getValue()));
     nodoaux->calcTotal();
     this->a->addNewNode(nodoaux);
     this->open.insert(nodoaux);
@@ -131,9 +131,9 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     //emit updateMaze();
 
     while(n->getPadre() != NULL){
-        qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
         costo += n->getCosto();
-        n = n->getPadre();
+        if(n->getPadre() != NULL)
+            n = n->getPadre();
     }
 
     return costo;
@@ -143,24 +143,6 @@ Nodo* AStar::Search(Nodo *nodoaux,Coordinates cooraux)
 {
     Nodo *naux;
 
-    if(checkMove(current)){  // si me puedo mover
-        if(this->m->getFinalPoint().Comp(this->current)){
-            this->foundFinalPoint = true;
-            emit updateMaze();
-            return nodoaux;
-        }
-
-        this->addLevel(nodoaux);
-
-        // moverse
-        cooraux = this->inverseMapping(nodoaux); // nuevas coordenadas del siguiente punto
-        emit updateMaze();
-        naux = new Nodo(nodoaux,cooraux);
-        if(!this->current.Comp(cooraux)){
-            this->current = cooraux;
-            return naux;
-        }
-    }
     return NULL;
 }
 

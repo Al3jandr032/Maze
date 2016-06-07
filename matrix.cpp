@@ -54,6 +54,26 @@ void Matrix::setFinalPoint(Coordinates fp)
     this->finalPoint = fp;
 }
 
+Coordinates Matrix::getKeyPoint()
+{
+    return this->key;
+}
+
+void Matrix::setKeyPoint(Coordinates fp)
+{
+    this->key = fp;
+}
+
+Coordinates Matrix::getDarkPoint()
+{
+    return this->portal;
+}
+
+void Matrix::setDarkPoint(Coordinates fp)
+{
+    this->portal = fp;
+}
+
 unsigned int Matrix::getm()
 {
     return this->m;

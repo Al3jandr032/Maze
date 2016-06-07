@@ -221,6 +221,12 @@
      </property>
      <addaction name="actionInicial"/>
      <addaction name="actionFinal"/>
+     <addaction name="separator"/>
+     <addaction name="actionKey"/>
+     <addaction name="actionDark_templ"/>
+     <addaction name="actionHuman"/>
+     <addaction name="actionOctopius"/>
+     <addaction name="actionPortal"/>
     </widget>
     <addaction name="menuType_of_terrain"/>
     <addaction name="menuPoints"/>
@@ -412,6 +418,46 @@
    </property>
    <property name="text">
     <string>Solution</string>
+   </property>
+  </action>
+  <action name="actionKey">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Key</string>
+   </property>
+  </action>
+  <action name="actionDark_templ">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Dark Temple</string>
+   </property>
+  </action>
+  <action name="actionHuman">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Human</string>
+   </property>
+  </action>
+  <action name="actionOctopius">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Octopius</string>
+   </property>
+  </action>
+  <action name="actionPortal">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Portal</string>
    </property>
   </action>
  </widget>

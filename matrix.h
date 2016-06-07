@@ -23,6 +23,10 @@ public:
     void setInicialPoint(Coordinates ip);
     Coordinates getFinalPoint();
     void setFinalPoint(Coordinates fp);
+    Coordinates getKeyPoint();
+    void setKeyPoint(Coordinates fp);
+    Coordinates getDarkPoint();
+    void setDarkPoint(Coordinates fp);
     unsigned int getm();
     unsigned int getn();
     void print(void);
@@ -37,7 +41,7 @@ private:
     //bool **maze; QVector< QVector<Casilla> >
     bool loaded;
     QVector< QVector<Casilla *> > maze;
-    Coordinates inicialPoint,finalPoint;
+    Coordinates inicialPoint,finalPoint,key,portal;
     unsigned int m,n;
     Precedence *precedence;
 
