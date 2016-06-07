@@ -8,6 +8,7 @@
 
 class Route:public AStar
 {
+    Q_OBJECT
 public:
     Route();
     Route(Points *p);
@@ -20,6 +21,9 @@ private:
     void calcOcto(Entity * entity);
     Points *p;
     QVector<unsigned int> *a,*b;
+    void clear();
+
+
 };
 
 #endif // ROUTE_H

@@ -38,7 +38,8 @@ void AStar::solve()
     while(!this->open.isEmpty() ){
         nodoaux = this->getMin();
         this->open.remove(nodoaux);
-        addLevel(nodoaux);
+        addLevel(nodoaux,this->m->getFinalPoint());
+
         if(this->m->getFinalPoint().Comp(nodoaux->getValue())){
             this->foundFinalPoint = true;
             break;
@@ -49,7 +50,6 @@ void AStar::solve()
                 this->foundFinalPoint = true;
                 break;
             }else{
-                qDebug() << "Buscando " << endl;
                 if(this->CheckNodo(this->close,n)){
                     continue;
                 }
@@ -65,13 +65,13 @@ void AStar::solve()
             break;
 
     }
-
-    while(n->getPadre() != NULL){
+    while( n->getPadre() != NULL){
         this->m->getValueAt(n->getValue())->Path(true);
         n = n->getPadre();
     }
     emit updateMaze();
     qDebug() << "termine" << endl;
+
     this->exportTree();
     this->a->print();
 
@@ -79,6 +79,7 @@ void AStar::solve()
 
 unsigned int AStar::Solve(Coordinates a, Coordinates b)
 {
+    this->foundFinalPoint = false;
     unsigned int costo=0;
     QSet<Nodo *>::iterator iter;
     this->close.clear();
@@ -98,7 +99,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     while(!this->open.isEmpty() ){
         nodoaux = this->getMin();
         this->open.remove(nodoaux);
-        addLevel(nodoaux);
+        addLevel(nodoaux,b);
 
         if(b.Comp(nodoaux->getValue())){
             this->foundFinalPoint = true;
@@ -110,7 +111,6 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
                 this->foundFinalPoint = true;
                 break;
             }else{
-                qDebug() << "Buscando " << endl;
                 if(this->CheckNodo(this->close,n)){
                     continue;
                 }
@@ -126,16 +126,16 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
             break;
 
     }
-    emit updateMaze();
-    qDebug() << "termine" << endl;
-    //emit updateMaze();
-
+    qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
     while(n->getPadre() != NULL){
         costo += n->getCosto();
-        if(n->getPadre() != NULL)
+        if(n->getPadre() == NULL){
+            qDebug() <<"something wrone" << endl;
+            break;
+        }else
             n = n->getPadre();
     }
-
+    qDebug() << "termine" << endl;
     return costo;
 }
 
@@ -143,10 +143,28 @@ Nodo* AStar::Search(Nodo *nodoaux,Coordinates cooraux)
 {
     Nodo *naux;
 
+    if(checkMove(current)){  // si me puedo mover
+        if(this->m->getFinalPoint().Comp(this->current)){
+            this->foundFinalPoint = true;
+            emit updateMaze();
+            return nodoaux;
+        }
+
+        this->addLevel(nodoaux,this->m->getFinalPoint());
+
+        // moverse
+        cooraux = this->inverseMapping(nodoaux); // nuevas coordenadas del siguiente punto
+        emit updateMaze();
+        naux = new Nodo(nodoaux,cooraux);
+        if(!this->current.Comp(cooraux)){
+            this->current = cooraux;
+            return naux;
+        }
+    }
     return NULL;
 }
 
-void AStar::addLevel(Nodo *nodoaux)
+void AStar::addLevel(Nodo *nodoaux,Coordinates b)
 {
     Nodo *n;
     Coordinates newcord;
@@ -157,11 +175,12 @@ void AStar::addLevel(Nodo *nodoaux)
 
         newcord = nodoaux->getValue();
         newcord.setY(nodoaux->getValue().getY() - 1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
-            qDebug() << " add new node up "<< endl;
+        if(!this->m->getValueAt(newcord)->isView())
+        {
+
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -171,11 +190,12 @@ void AStar::addLevel(Nodo *nodoaux)
     if(ady->getDown() >= 1 ){
         newcord = nodoaux->getValue();
         newcord.setY(nodoaux->getValue().getY() + 1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
-            qDebug() << " add new node Down "<< endl;
+        if(!this->m->getValueAt(newcord)->isView())
+        {
+
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -184,11 +204,11 @@ void AStar::addLevel(Nodo *nodoaux)
     if(ady->getLeft() >= 1 ){
         newcord = nodoaux->getValue();
         newcord.setX(nodoaux->getValue().getX() -1);
-        if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
-            qDebug() << " add new node left "<< endl;
+        if(!this->m->getValueAt(newcord)->isView()){
+
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n);
@@ -198,10 +218,10 @@ void AStar::addLevel(Nodo *nodoaux)
         newcord = nodoaux->getValue();
         newcord.setX(nodoaux->getValue().getX() + 1);
         if(!this->m->getValueAt(newcord.getX(),newcord.getY())->isView()){
-            qDebug() << " add new node right "<< endl;
+
             n = new Nodo(nodoaux,newcord);
             n->setCosto(this->entity->getCost(this->m->getValueAt(newcord)->getType()) + nodoaux->getCosto());
-            n->setDistancia(this->calcDistance(this->m->getFinalPoint(),newcord));
+            n->setDistancia(this->calcDistance(b,newcord));
             n->calcTotal();
             this->a->addNode(n);
             //this->open.insert(n); buscar si existe con la misma posicion

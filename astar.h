@@ -9,8 +9,6 @@
 #include "monkey.h"
 #include "octopus.h"
 
-
-
 class AStar:public Solver
 {
     Q_OBJECT
@@ -29,12 +27,9 @@ private:
     unsigned int CalcTotal(int type_t,Coordinates c);
     Coordinates inverseMapping(Nodo *auxNodo);
     Nodo* Search(Nodo *nodoaux,Coordinates cooraux);
-    void addLevel(Nodo *nodoaux);
+    void addLevel(Nodo *nodoaux,Coordinates final);
     bool CheckNodo(QSet<Nodo *> set,Nodo *n);
     Nodo * getMin();
-
-
-
 };
 
 #endif // ASTAR_H

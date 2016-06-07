@@ -486,7 +486,11 @@ void MainWindow::on_actionCosto_triggered()
     Route *r = new Route();
     r->setMatrix(matrix);
     r->setPoints(this->p);
-    QObject::connect(r,SIGNAL(updateMaze()),this,SLOT(updateView()));
+    qDebug()<<"Key "<< p->getKey().getX() << " : " << p->getKey().getY() << endl;
+    qDebug()<<"Dark "<< p->getDark().getX() << " : " << p->getDark().getY() << endl;
+    qDebug()<<"Human "<< p->getHuman().getX() << " : " << p->getHuman().getY() << endl;
+    qDebug()<<"Octo "<< p->getOctopus().getX() << " : " << p->getOctopus().getY() << endl;
+    qDebug()<<"Portal"<< p->getPortal().getX() << " : " << p->getPortal().getY() << endl;
     r->calc();
     this->ui->costo_label->setText(QString::number(5));
     this->ui->costo_label->show();

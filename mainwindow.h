@@ -37,6 +37,14 @@ public:
 signals:
     void make_move(Coordinates c,unsigned short int dir);
 private slots:
+    void move(Coordinates c,unsigned short int dir );
+
+    void updateActiveBox(Coordinates c );
+
+    void updateView();
+
+    void updateOne();
+
     void on_actionOpen_triggered();
 
     void on_actionNew_triggered();
@@ -49,7 +57,6 @@ private slots:
 
     void onClickChangeType();
 
-    void updateActiveBox(Coordinates c );
     void on_actionBredth_First_Search_triggered();
 
     void on_actionDepth_First_Search_triggered();
@@ -59,12 +66,6 @@ private slots:
     void on_actionA_triggered();
 
     void on_actionCover_map_triggered();
-
-    void move(Coordinates c,unsigned short int dir );
-
-    void updateView();
-
-    void updateOne();
 
     void on_actionClear_triggered();
 
