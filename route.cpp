@@ -36,11 +36,31 @@ void Route::calc()
     b->push_back(b->at(2)+b->at(6));
     b->push_back(b->at(1)+b->at(3)+b->at(6));
     b->push_back(b->at(2)+b->at(4)+b->at(5));
-    for(int i=0;i<a->size();i++){
-        qDebug() << a->at(i);
-    }
-    for(int i=0;i<b->size();i++){
-        qDebug() << b->at(i);
+    this->compare();
+}
+
+void Route::compare()
+{
+    if(a->at(10) > b->at(10)){
+        if(a->at(10) < a->at(9)){
+            this->humanTask = "I-D-K-P";
+            this->octopustask = "I-P";
+            costo = a->at(10) + b->at(0);
+        }else{
+            this->humanTask = "I-K-D-P";
+            this->octopustask = "I-P";
+            costo = a->at(9) + b->at(0);
+        }
+    }else{
+        if(b->at(10) < b->at(9)){
+            this->humanTask = "I-P";
+            this->octopustask = "I-D-K-P";
+            costo = b->at(10) + a->at(0);
+        }else{
+            this->humanTask = "I-P";
+            this->octopustask =  "I-K-D-P";
+            costo = b->at(9) + a->at(0);
+        }
     }
 }
 
@@ -52,6 +72,21 @@ void Route::setPoints(Points *p)
 Points *Route::getPoints()
 {
     return this->p;
+}
+
+unsigned int Route::getCosto()
+{
+    return this->costo;
+}
+
+QString Route::getHuman()
+{
+    return this->humanTask;
+}
+
+QString Route::getOctopus()
+{
+    return this->octopustask;
 }
 
 void Route::calcHuman(Entity *entity)
@@ -131,5 +166,6 @@ void Route::clear()
 
     }
 }
+
 
 

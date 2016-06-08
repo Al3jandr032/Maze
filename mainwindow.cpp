@@ -492,9 +492,11 @@ void MainWindow::on_actionCosto_triggered()
     qDebug()<<"Octo "<< p->getOctopus().getX() << " : " << p->getOctopus().getY() << endl;
     qDebug()<<"Portal"<< p->getPortal().getX() << " : " << p->getPortal().getY() << endl;
     r->calc();
-    this->ui->costo_label->setText(QString::number(5));
+    this->ui->costo_label->setText(QString::number(r->getCosto()));
     this->ui->costo_label->show();
     this->ui->costo_labelt->show();
+    this->ui->lineEditHuman->setText(r->getHuman());
+    this->ui->lineEditOctopus->setText(r->getOctopus());
     ui->actionOriginal->setEnabled(true);
     ui->actionSolution->setEnabled(true);
 }
