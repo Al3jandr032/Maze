@@ -65,14 +65,17 @@ void AStar::solve()
             break;
 
     }
+    int costo;
+    qDebug() << "Costo :" << n->getCosto() << endl;
     while( n->getPadre() != NULL){
         this->m->getValueAt(n->getValue())->Path(true);
+        costo += n->getCosto();
         n = n->getPadre();
     }
     emit updateMaze();
-    qDebug() << "termine" << endl;
+    qDebug() << "Costo :" << n->getCosto() << endl;
 
-    this->exportTree();
+    //this->exportTree();
     this->a->print();
 
 }
@@ -90,7 +93,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
     this->a = new Arbol();
     this->current =  a;
     nodoaux = new Nodo(NULL,this->current);
-    nodoaux->setCosto(this->entity->getCost(this->m->getValueAt(current)->getType()));
+    nodoaux->setCosto(0);
     nodoaux->setDistancia(this->calcDistance(b,nodoaux->getValue()));
     nodoaux->calcTotal();
     this->a->addNewNode(nodoaux);
@@ -127,6 +130,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
 
     }
     qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
+    /*
     while(n->getPadre() != NULL){
         costo += n->getCosto();
         if(n->getPadre() == NULL){
@@ -134,9 +138,9 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
             break;
         }else
             n = n->getPadre();
-    }
-    qDebug() << "termine" << endl;
-    return costo;
+    }*/
+
+    return n->getCosto() ;
 }
 
 Nodo* AStar::Search(Nodo *nodoaux,Coordinates cooraux)
