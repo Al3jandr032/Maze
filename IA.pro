@@ -31,7 +31,10 @@ SOURCES += main.cpp\
     octopus.cpp \
     human.cpp \
     points.cpp \
-    route.cpp
+    route.cpp \
+    croc.cpp \
+    sasquatch.cpp \
+    werewolf.cpp
 
 HEADERS  += mainwindow.h \
     matrix.h \
@@ -51,6 +54,9 @@ HEADERS  += mainwindow.h \
     octopus.h \
     human.h \
     points.h \
-    route.h
+    route.h \
+    croc.h \
+    sasquatch.h \
+    werewolf.h
 
 FORMS    += mainwindow.ui

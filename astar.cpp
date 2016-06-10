@@ -83,7 +83,7 @@ void AStar::solve()
 unsigned int AStar::Solve(Coordinates a, Coordinates b)
 {
     this->foundFinalPoint = false;
-    unsigned int costo=0;
+
     QSet<Nodo *>::iterator iter;
     this->close.clear();
     this->open.clear();
@@ -129,17 +129,7 @@ unsigned int AStar::Solve(Coordinates a, Coordinates b)
             break;
 
     }
-    qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
-    /*
-    while(n->getPadre() != NULL){
-        costo += n->getCosto();
-        if(n->getPadre() == NULL){
-            qDebug() <<"something wrone" << endl;
-            break;
-        }else
-            n = n->getPadre();
-    }*/
-
+    //qDebug() <<n->getValue().getX() << "."<< n->getValue().getY()<< endl;
     return n->getCosto() ;
 }
 

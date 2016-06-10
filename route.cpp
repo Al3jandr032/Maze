@@ -25,18 +25,16 @@ Route::~Route()
 
 void Route::calc()
 {
-    this->calcHuman(new Human());
-    this->calcOcto(new Octopus());
+    this->calcEntity( new Human(), this->p->getHuman(),this->a );
+    this->calcEntity( new Octopus(), this->p->getOctopus(),this->b);
+    this->calcEntity( new Monkey(), this->p->getMonkey(),this->c);
+    this->calcEntity( new Croc(), this->p->getCroc(),this->d);
+    this->calcEntity( new Sasquatch(), this->p->getSasq(),this->e);
+    this->calcEntity( new Werewolf(), this->p->getWolf(),this->f);
     qDebug() << "Is done check this out"<< endl;
-    a->push_back(a->at(1)+a->at(5));
-    a->push_back(a->at(2)+a->at(6));
-    a->push_back(a->at(1)+a->at(3)+a->at(6));
-    a->push_back(a->at(2)+a->at(4)+a->at(5));
-    b->push_back(b->at(1)+b->at(5));
-    b->push_back(b->at(2)+b->at(6));
-    b->push_back(b->at(1)+b->at(3)+b->at(6));
-    b->push_back(b->at(2)+b->at(4)+b->at(5));
-    this->compare();
+
+
+    //this->compare();
 }
 
 void Route::compare()
@@ -89,72 +87,231 @@ QString Route::getOctopus()
     return this->octopustask;
 }
 
-void Route::calcHuman(Entity *entity)
+void Route::calcEntity(Entity *entity, Coordinates c,QVector<unsigned int> *v)
 {
     this->setEntity(entity);
     unsigned int aux;
-    aux = this->Solve(p->getHuman(),p->getPortal());
+    aux = this->Solve(c,p->getPortal());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //inicial- key
-    aux = this->Solve(p->getHuman(),p->getKey());
+    aux = this->Solve(c,p->getKey());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //inicial dark temple
-    aux = this->Solve(p->getHuman(),p->getDark());
+    aux = this->Solve(c,p->getDark());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //Key to dark
     aux = this->Solve(p->getKey(),p->getDark());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //Dark to key
     aux = this->Solve(p->getDark(),p->getKey());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //Key to portal
     aux = this->Solve(p->getKey(),p->getPortal());
     clear();
-    a->push_back(aux);
+    v->push_back(aux);
     //Dark to portal
     aux = this->Solve(p->getDark(),p->getPortal());
     clear();
-    a->push_back(aux);
-
+    v->push_back(aux);
+    //calcular combinados
+    v->push_back(v->at(1)+v->at(5));
+    v->push_back(v->at(2)+v->at(6));
+    v->push_back(v->at(1)+v->at(3)+v->at(6));
+    v->push_back(v->at(2)+v->at(4)+v->at(5));
 }
 
-void Route::calcOcto(Entity *entity)
+void Route::calcEntity(Entity *entity, QVector<unsigned int> *v)
 {
     this->setEntity(entity);
-    unsigned int aux;//IP
-    //incial to portal
-    aux = this->Solve(p->getOctopus(),p->getPortal());
+    unsigned int aux;
+    /******************************************/
+    aux = this->Solve(p->getA(),p->getKey());
     clear();
-    b->push_back(aux);
-    //inicial- key
-    aux = this->Solve(p->getOctopus(),p->getKey());
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getA(),p->getDark());
     clear();
-    b->push_back(aux);
-    //inicial dark temple
-    aux = this->Solve(p->getOctopus(),p->getDark());
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getA(),p->getStones());
     clear();
-    b->push_back(aux);
-    //Key to dark
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getA(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getA(),p->getPortal());
+    clear();
+    v->push_back(aux);
+    /*--------------------------------------------*/
+    /******************************************/
+    aux = this->Solve(p->getB(),p->getKey());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getB(),p->getDark());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getB(),p->getStones());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getB(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getB(),p->getPortal());
+    clear();
+    v->push_back(aux);
+    /*----------------------------------------*/
+    /******************************************/
+    aux = this->Solve(p->getC(),p->getKey());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getC(),p->getDark());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getC(),p->getStones());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getC(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getC(),p->getPortal());
+    clear();
+    v->push_back(aux);
+    /*********************************/
+
+    /******************************************/
+    aux = this->Solve(p->getKey(),p->getA());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getKey(),p->getB());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getKey(),p->getC());
+    clear();
+    v->push_back(aux);
+    /******************************************/
     aux = this->Solve(p->getKey(),p->getDark());
     clear();
-    b->push_back(aux);
-    //Dark to key
-    aux = this->Solve(p->getDark(),p->getKey());
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getKey(),p->getStones());
     clear();
-    b->push_back(aux);
-    //Key to portal
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getKey(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
     aux = this->Solve(p->getKey(),p->getPortal());
     clear();
-    b->push_back(aux);
-    //Dark to portal
+    v->push_back(aux);
+
+
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getA());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getB());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getC());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getKey());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getStones());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getDark(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
     aux = this->Solve(p->getDark(),p->getPortal());
     clear();
-    b->push_back(aux);
+    v->push_back(aux);
+
+
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getA());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getB());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getC());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getKey());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getDark());
+    clear();
+    v->push_back(aux);
+
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getFriend());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getStones(),p->getPortal());
+    clear();
+    v->push_back(aux);
+
+
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getA());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getB());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getC());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getKey());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getDark());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getStones());
+    clear();
+    v->push_back(aux);
+    /******************************************/
+    aux = this->Solve(p->getFriend(),p->getPortal());
+    clear();
+    v->push_back(aux);
 }
 
 void Route::clear()

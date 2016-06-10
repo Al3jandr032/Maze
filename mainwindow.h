@@ -95,6 +95,16 @@ private slots:
 
     void on_actionPortal_triggered();
 
+    void on_actionStones_triggered();
+
+    void on_actionArrival_point_I_triggered();
+
+    void on_actionArrival_Point_II_triggered();
+
+    void on_actionArrival_Point_IIII_triggered();
+
+    void on_actionFriend_triggered();
+
 private:
     Ui::MainWindow *ui;
 

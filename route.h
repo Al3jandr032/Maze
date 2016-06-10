@@ -4,6 +4,10 @@
 #include "points.h"
 #include "octopus.h"
 #include "human.h"
+#include "monkey.h"
+#include "croc.h"
+#include "sasquatch.h"
+#include "werewolf.h"
 #include <QVector>
 
 class Route:public AStar
@@ -20,14 +24,14 @@ public:
     QString getHuman();
     QString getOctopus();
 private:
-    void calcHuman(Entity *entity);
-    void calcOcto(Entity * entity);
+    void calcEntity(Entity *entity,Coordinates c,QVector<unsigned int> *v);
+    void calcEntity(Entity *entity,QVector<unsigned int> *v);
     Points *p;
-    QVector<unsigned int> *a,*b;
+    QVector<unsigned int> *a,*b,*c,*d,*e,*f;
     unsigned int costo;
     void clear();
     void compare();
-    QString humanTask,octopustask;
+    QString humanTask,octopustask,monkeytask,croctask,sasquatchtask,werewolftask;
 
 
 };

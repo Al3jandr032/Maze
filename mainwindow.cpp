@@ -281,6 +281,45 @@ void MainWindow::on_actionPortal_triggered()
     this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkCyan);
     this->scene->update();
 }
+
+void MainWindow::on_actionStones_triggered()
+{
+    qDebug() << "Stones" << endl;
+    //this->matrix->setDarkPoint();
+    this->p->setStones(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::darkCyan);
+    this->scene->update();
+}
+
+void MainWindow::on_actionArrival_point_I_triggered()
+{
+        this->p->setA(this->activeCor);
+        this->matrix->getValueAt(this->activeCor)->setBrush(Qt::black);
+        this->scene->update();
+}
+
+void MainWindow::on_actionArrival_Point_II_triggered()
+{
+        this->p->setB(this->activeCor);
+        this->matrix->getValueAt(this->activeCor)->setBrush(Qt::black);
+        this->scene->update();
+}
+
+void MainWindow::on_actionArrival_Point_IIII_triggered()
+{
+        this->p->setC(this->activeCor);
+        this->matrix->getValueAt(this->activeCor)->setBrush(Qt::black);
+        this->scene->update();
+}
+void MainWindow::on_actionFriend_triggered()
+{
+    this->p->setFriend(this->activeCor);
+    this->matrix->getValueAt(this->activeCor)->setBrush(Qt::black);
+    this->scene->update();
+}
+
+
+
 /********************************************************************************/
 /*
 *   Function handle when the action Open has triggered
@@ -547,4 +586,5 @@ void MainWindow::on_actionSolution_triggered()
 {
     this->drawMap(15,15,true);
 }
+
 

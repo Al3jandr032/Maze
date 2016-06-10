@@ -7,7 +7,7 @@
 class Monkey:public Entity
 {
 public:
-    enum { Mountain = 0,Earth = 2,Water = 4,Sand = 3,Forest = 1 };
+    enum { Mountain = 0,Earth = 2,Water = 4,Sand = 3,Forest = 1,Swamp = 5,Snow = 0 };
     Monkey();
 };
 

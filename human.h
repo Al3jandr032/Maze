@@ -8,7 +8,7 @@
 class Human:public Entity
 {
 public:
-    enum { Mountain = 0,Earth = 1,Water = 2,Sand = 3,Forest = 4 };
+    enum { Mountain = 0,Earth = 1,Water = 2,Sand = 3,Forest = 4,Swamp = 5,Snow = 5 };
     Human();
 };
 
